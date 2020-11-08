@@ -21,6 +21,7 @@ class TagFactory extends Factory
      */
     public function definition()
     {
+
         return [
             'post_id' =>$this->faker->numberBetween($min=0,$max=50),
             'slug' => $this->faker->slug,

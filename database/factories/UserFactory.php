@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'lastname' => $this -> faker -> lastName,
             'username' => $this -> faker-> userName,
             'email' => $this -> faker -> safeEmail,
-            'password' => $this -> faker -> password,
+            'password' => bcrypt($this -> faker -> password),
         ];
     }
 }

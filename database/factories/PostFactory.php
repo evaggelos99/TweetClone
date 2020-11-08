@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 class PostFactory extends Factory
 {
@@ -23,9 +24,11 @@ class PostFactory extends Factory
     {
         //random number that determines if the post will have a tag
         $tags = array("gaming", "cars", "food", "fitness", "news");
-        if (rand(0,2)==0) {
+        if (rand(0,3)==0) {
             $tagTitle = $tags[array_rand($tags,1)];
-        } else { $tagTitle=null; }
+        } else $tagTitle=null;
+
+        //$tagTitle = $tags[array_rand($tags,1)];
 
         return [
             'user_id' => $this -> faker -> numberBetween($min=1,$max=10), //Picking a random number from the user's id

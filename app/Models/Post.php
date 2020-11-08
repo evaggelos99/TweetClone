@@ -9,20 +9,20 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function users() {
-        return $this->hasOne('\App\Models\User');
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
 
-    public function reports() {
-        return $this->hasMany('\App\Models\Repost');
+    public function repost() {
+        return $this->hasMany(Repost::class);
     }
 
-    public function comments() {
-        return $this->hasMany('\App\Models\Comment');
+    public function comment() {
+        return $this->hasMany(Comment::class);
     }
 
-    public function tags() {
-        return $this->hasMany('\App\Models\Tag');
+    public function tag() {
+        return $this->hasMany(Tag::class);
     }
 }

@@ -9,11 +9,11 @@ class User extends Model
 {
     use HasFactory;
 
-    public function posts() {
-        return $this->hasMany('\App\Models\Post');
+    public function post() {
+        return $this->hasMany(Post::class);
     }
 
-    public function comments() {
-        return $this->hasMany('\App\Models\Comment');
+    public function comment() {
+        return $this->hasMany(Comment::class);
     }
 }

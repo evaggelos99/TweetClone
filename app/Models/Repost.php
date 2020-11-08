@@ -9,15 +9,15 @@ class Repost extends Model
 {
     use HasFactory;
 
-    public function posts() {
-        $this ->hasOne('\App\Models\Post');
+    public function post() {
+        return $this ->belongsTo(Post::class);
     }
 
     public function childrenRepost() {
-        $this->hasOne('\App\Models\Repost');
+        return $this->belongsTo(Repost::class);
     }
 
     public function parentRepost() {
-        $this->hasMany('\App\Models\Repost');
+        return $this->hasMany(Repost::class);
     }
 }

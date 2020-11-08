@@ -9,15 +9,8 @@ class Tag extends Model
 {
     use HasFactory;
 
-    public function posts() {
-        $this->hasOne('\App\Models\Post');
+    public function post() {
+        return $this->belongsTo(Post::class);
     }
 
-    public function parentComment() {
-        $this->hasMany('\App\Models\Comment');
-    }
-
-    public function childrenComment() {
-        $this->hasOne('\App\Models\Comment');
-    }
 }

@@ -9,19 +9,19 @@ class Comment extends Model
 {
     use HasFactory;
 
-    public function posts() {
-        $this->hasOne('\App\Models\Post');
+    public function post() {
+        return $this->belongsTo(Post::class);
     }
 
     public function user() {
-        $this->hasOne('\App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function parentComment() {
-        $this->hasMany('\App\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function childrenComment() {
-        $this->belongsTo('\App\Models\Comment');
+        return $this->belongsTo(Comment::class);
     }
 }
