@@ -20,4 +20,8 @@ class Repost extends Model
     public function parentRepost() {
         return $this->hasMany(Repost::class);
     }
+
+    public function user() {
+        return $this -> belongsTo(User::class);
+    }
 }

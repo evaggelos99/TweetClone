@@ -23,6 +23,6 @@ class Post extends Model
     }
 
     public function tag() {
-        return $this->hasMany(Tag::class);
+        return $this->belongsToMany(Tag::class,"tags",'id','id');
     }
 }
