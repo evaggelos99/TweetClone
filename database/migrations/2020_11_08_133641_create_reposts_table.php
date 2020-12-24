@@ -18,11 +18,11 @@ class CreateRepostsTable extends Migration
 
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references('id')
-                -> on('users');
+                -> on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->unsignedBigInteger("post_id");
             $table->foreign("post_id")->references('id')
-                -> on('posts');
+                -> on('posts')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string("slug")->unique();
             $table->timestamps();

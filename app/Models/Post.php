@@ -9,10 +9,16 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'content',
+        'likes',
+        'tag',
+        'image'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
-
 
     public function repost() {
         return $this->hasMany(Repost::class);

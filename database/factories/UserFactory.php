@@ -22,9 +22,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this -> faker -> firstName,
-            'lastname' => $this -> faker -> lastName,
-            'username' => $this -> faker-> userName,
+            'username' => $this -> faker -> userName,
             'email' => $this -> faker -> safeEmail,
             'password' => bcrypt($this -> faker -> password),
         ];

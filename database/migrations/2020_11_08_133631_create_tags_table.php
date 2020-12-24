@@ -15,9 +15,11 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger("post_id");
             $table->foreign("post_id")->references('id')
-                -> on('posts');
+                -> on('posts')->onDelete('cascade')->onUpdate('cascade');
+
             $table->string("context"); // the name of the tag for example a tag could be #uselections
             $table->string("slug")->unique();
             $table->timestamps();

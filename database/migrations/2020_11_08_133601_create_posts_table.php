@@ -16,15 +16,15 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id");
-            $table->string("title");
             $table->string("content");
-            $table->integer("likes");
-            $table->string("slug")->unique();
+            $table->integer("likes")->nullable();
             $table->string("tag")->nullable();
             $table->binary("image")->nullable();
             $table->timestamps();
+
             $table->foreign("user_id")->references('id')
-                -> on('users');
+                -> on('users')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 
@@ -35,6 +35,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('post');
     }
 }
