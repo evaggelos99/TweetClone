@@ -6,9 +6,9 @@
         <div class="row">
             <div class="col-3 p-5 div-picture">
                 <div>
-                    @if($user->profile_photo_path !=null)
+                    @if($user->image !=null)
                         <div>
-                            <img src="/storage/{{$user->profile_photo_path}}"
+                            <img src="/storage/{{$user->image}}"
                                  width="150" height="150" class="rounded-circle">
                         </div>
                     @endif
@@ -40,43 +40,66 @@
         </div>
         <ul>
         @foreach($user->posts as $post)
-            <!--<li style="padding: 10px"><a href="/tweets/{{$post->id}}"> {{$post->content}}</a></li> -->
 
                     <div style="padding: 15px">
                         <div class="container"
                              style="padding-bottom: 10px; border-style: ridge; margin: 10px;margin: auto;width: 50%;">
-                            <div class="well">
+                            <div onclick="location.href='{{route('tweet.show', $post->id)}}'" class="well">
+
                                 <div class="media">
-                                    @if($user->profile_photo_path !=null)
+                                    @if($user->image !=null)
                                     <a class="pull-left" style="padding: 15px" href="/account/{{$post->user_id}}">
 
                                             <div>
-                                                <img src="/storage/{{$user->profile_photo_path}}"
+                                                <img src="/storage/{{$user->image}}"
                                                      width="50" height="50" class="rounded-circle">
                                             </div>
 
                                     </a>
                                     @endif
-                                    <div class="media-body">
-                                        <h6 class="media-heading"
-                                            style="line-height: 3em">{{$post -> user-> username}}</h6>
+                                    <div class="media-body" style="padding-top: 10px">
+                                        <div style="float: right; padding: 5px">
+                                        @if(Auth::user()-> id == $post->user_id)
+                                            <form action="{{route('tweet.edit', $post->id)}}" method="get">
+                                                @csrf
+                                                <button class="btn btn-warning" style="border-radius: 10px" title="Edit Tweet"><u>E</u>dit</button>
+                                                @endif
+                                            </form>
+                                            <div style="padding-bottom: 10px"></div>
+                                        @if(Auth::user()-> id == $post->user_id)
+                                            <form action="{{route('tweet.destroy', $post->id)}}" method="post">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn btn-danger" style="border-radius: 10px"
+                                                        title="Delete Tweet"><u>X</u></button>
+                                                @endif
+                                            </form>
+                                        </div>
+                                        <strong class="media-heading"
+                                            style="line-height: 3em">{{$post -> user-> username}}</strong>
                                         <p>{{$post->content}}</p>
                                         @if($post->image !=null)
                                             <div>
-                                                <img src="/storage/{{$post->image}}"
-                                                     style="max-width:300px;max-height:300px;height: auto; width: auto">
+                                                <a href="/storage/{{$post->image}}"><img src="/storage/{{$post->image}}"
+                                                     style="max-width:300px;max-height:300px;height: auto; width: auto"></a>
                                             </div>
                                         @endif
+
 
                                         <div class="flex-column" style="padding-top: 15px">
                                             <i style="font-size: 12px; padding-right: 4px">Comments</i>
                                             <i style="font-size: 12px; padding-right: 4px">Reposts</i>
                                             <i style="font-size: 12px; padding-right: 4px">Likes: {{$post->likes ?? 0}}</i>
                                             <i style="font-size: 12px">Created: {{$post->created_at->format('d-m-Y')}}</i>
+                                            @if($post->created_at != $post->updated_at)
+                                                <i style="font-size: 12px; padding-right: 4px">(Edited)</i>
+                                            @endif
                                         </div>
-                                        <!--<a href="/tweets/{{$post->id}}" class="stretched-link"></a>-->
+
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
 

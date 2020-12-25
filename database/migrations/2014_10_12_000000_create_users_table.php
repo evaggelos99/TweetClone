@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('biography')-> nullable();
             $table->string('location')->nullable();
             //$table->foreignId('current_team_id')->nullable();
-            $table->binary('profile_photo_path')->nullable();
+            $table->binary('image')->nullable();
             $table->timestamps();
         });
     }

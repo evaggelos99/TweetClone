@@ -43,9 +43,10 @@ class PostController extends Controller
         $data = request()->validate([
             'content' => 'required',
             'likes'=> 'nullable',
-
-            'image' => ['nullable', 'image']
+            'image' => ['nullable', 'image'],
+            'tag' =>['nullable'],
         ]);
+
         if (request('image')!=null) {
             $filepath = request('image')->store('uploads', 'public');
         }
@@ -53,10 +54,17 @@ class PostController extends Controller
         auth()-> user()->posts()->create([
             'content'=> $data['content'],
             'image' => $filepath ?? null,
-            'likes' => $data['likes'] ?? null
+            'likes' => $data['likes'] ?? null,
+            'tag' =>$data['tag'] ?? null,
         ]);
 
-        return redirect('/account/'. auth()->user()->id);
+        if (request('tag')!=null) {
+            //auth()-> user()->posts()->tags()->sync($request->input('tag'));
+            $post = Auth()->user()->posts();
+            $post->tags()->sync(request('tag'));
+        }
+
+        return redirect('/tweet/'. auth()->user()->id);
         //$idOfPost = request('id');
     }
 
@@ -80,7 +88,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('post.edit', [
+            'post'=>$post,
+        ]);
     }
 
     /**
@@ -92,7 +103,23 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        if (request('content')!='') {
+            $post->content = request('content');
+        }
+
+        if (request('tag')!='') {
+            $post->tag = request('tag');
+        }
+
+        if (request('image')!='') {
+            $filepath = request('image')->store('uploads', 'public');
+            $post->image = $filepath;
+        }
+
+        $post->save();
+        return redirect('/tweet/'. $post->id);
+
     }
 
     /**
@@ -103,6 +130,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::findOrFail($id)->delete();
+
+        return redirect('/account/'. auth()->user()->id);
     }
 }

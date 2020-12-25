@@ -17,9 +17,10 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
+        "laravelcollective/html": "5.1.*",
         "livewire/livewire": "^2.0",
         "protoqol/prequel": "^1.22",
-        "laravelcollective/html": "5.1.*"
+        "rtconner/laravel-tagging": "^4.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

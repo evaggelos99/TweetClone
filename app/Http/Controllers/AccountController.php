@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -76,18 +78,27 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $user= User::findOrFail($id);
-        $user->name = request('name');
-        $user->biography = request('biography');
-        $user->location = request('location');
+    public function update(Request $request, $id) {
 
-        if (request('image')!=null) {
-            $filepath = request('image')->store('uploads', 'public');
+        $user= User::findOrFail($id);
+        if (request('name')!=''){
+            $user->name = request('name');
+        }
+        if (request('biography')!='') {
+            $user->biography = request('biography');
+
+        }
+        if (request('location')!='') {
+            $user->location = request('location');
         }
 
-        $user->profile_photo_path = $filepath ?? null;
+
+        if (request('image')!='') {
+            $filepath = request('image')->store('uploads', 'public');
+            $user->image = $filepath;
+
+        }
+
 
 
         $user->save();
@@ -99,7 +110,7 @@ class AccountController extends Controller
             'profile_photo_path' => request('profile_photo_path'),
         ]);*/
 
-        return redirect('/account/'. auth()->user()->id);
+        return redirect('/account/'.$user->id);
 
     }
 
@@ -111,6 +122,7 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::findOrFail($id)->delete();
+        return redirect('/');
     }
 }

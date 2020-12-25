@@ -102,6 +102,16 @@
                                     <form id="settings-form" action="{{ route('account.edit', Auth::user()->id)}}" method="get" class="d-none">
                                         @csrf
                                     </form>
+
+                                    <a class="dropdown-item" href="{{ route('account.destroy', Auth::user()->id)}}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('delete-form').submit();">
+                                        {{ __('Delete Account') }}
+                                    </a>
+                                    <form id="delete-form" action="{{ route('account.destroy', Auth::user()->id)}}" method="post" class="d-none">
+                                        @method('DELETE')
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
                         @endguest

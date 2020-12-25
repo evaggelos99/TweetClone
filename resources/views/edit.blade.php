@@ -12,9 +12,9 @@
                 <div class="col-md-8">
 
 
-                    <div class="card">
+                    <div class="card p-3">
 
-                        <div class="form-group row" style="padding-top: 10px">
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Change your name:') }}</label>
 
                             <div class="col-md-6">
@@ -67,13 +67,14 @@
                             @endif
 
                         </div>
-
-                        <div class="form-group row">
+                        <div class="form-group col">
                             <label for="button" class="col-md-4 col-form-label text-md-right"></label>
                             <button class="btn btn-primary" style="border-radius: 20px; background-color: rgb(0,172,243)">
                                 Change settings
                             </button>
                         </div>
+
+
                     </div>
                 </div>
             </div>
