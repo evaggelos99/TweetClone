@@ -30,9 +30,11 @@
 
                 <div class="row-cols-2">
 
-                    <img src="{{asset('images/logo.svg')}}" height="60" width="60">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'TweetClone') }}
+                    <a href="{{url('/')}}" style="text-decoration: none">
+                        <img src="{{asset('images/logo.svg')}}" height="50" width="50">
+                        <h5 class="navbar-brand">
+                            {{ config('app.name', 'TweetClone') }}
+                        </h5>
                     </a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -62,7 +64,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{Auth::user()->name ?? Auth::user()->username}}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

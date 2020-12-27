@@ -17,11 +17,7 @@ class AccountController extends Controller
      */
     public function index($user)
     {
-        $user = User::findOrFail($user);
-        return view('account', [
-            'user'=>$user,
-        ]);
-        //TODO SWITCH INDEX WITH STORE SINCE IT'S WRONG
+
     }
 
     /**
@@ -53,7 +49,10 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('account', [
+            'user'=>$user,
+        ]);
     }
 
     /**
@@ -101,7 +100,7 @@ class AccountController extends Controller
 
 
 
-        $user->save();
+        $user->update();
 
         /*Auth::user()->update([
             'name' => request('name'),

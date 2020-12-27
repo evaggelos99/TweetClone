@@ -17,7 +17,11 @@
             </div>
             <div style="padding-left: 50px">
                 <div style="padding-bottom: 15px">
-                    <b style="font-size: 18px">{{$user->name}}</b></div>
+                    <b style="font-size: 18px">{{$user->name}}</b>
+                    @if(Auth::user()->id != $user->id)
+                    <button style="border-radius: 10px; background-color: rgb(0,172,243)" class="btn btn-info"><u>F</u>ollow</button>
+                @endif
+                </div>
                 <div style="padding-bottom: 15px">
                     <strong style="color: dimgrey; font-size: 16px">{{$user->username}}</strong>
                 </div>
@@ -59,21 +63,30 @@
                                     @endif
                                     <div class="media-body" style="padding-top: 10px">
                                         <div style="float: right; padding: 5px">
-                                        @if(Auth::user()-> id == $post->user_id)
+
+                                            @if(Auth::user()-> id == $post->user_id)
+                                                <form action="{{route('tweet.destroy', $post->id)}}" method="post">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger" style="border-radius: 10px"
+                                                            title="Delete Tweet"><u>X</u></button>
+                                                    @endif
+                                                </form>
+
+                                                <div style="padding-bottom: 10px"></div>
+                                            @if(Auth::user()-> id == $post->user_id)
                                             <form action="{{route('tweet.edit', $post->id)}}" method="get">
                                                 @csrf
                                                 <button class="btn btn-warning" style="border-radius: 10px" title="Edit Tweet"><u>E</u>dit</button>
                                                 @endif
                                             </form>
-                                            <div style="padding-bottom: 10px"></div>
-                                        @if(Auth::user()-> id == $post->user_id)
-                                            <form action="{{route('tweet.destroy', $post->id)}}" method="post">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="btn btn-danger" style="border-radius: 10px"
-                                                        title="Delete Tweet"><u>X</u></button>
+
+                                                    <div style="padding-bottom: 10px"></div>
+                                            <!-- FOLLOW BUTTON ADD FUNCTIONALITY -->
+                                                @if(Auth::user()->id != $post->user_id)
+                                            <button style="border-radius: 10px; background-color: rgb(0,172,243)" class="btn btn-info"><u>F</u>ollow</button>
                                                 @endif
-                                            </form>
+
                                         </div>
                                         <strong class="media-heading"
                                             style="line-height: 3em">{{$post -> user-> username}}</strong>

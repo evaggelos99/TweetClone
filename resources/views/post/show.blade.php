@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title','All posts')
-
 @section('content')
 
     <div class="container" style="padding-bottom: 10px; border-style: ridge; margin: 10px;margin: auto;
@@ -18,21 +16,26 @@
 
                 <div class="media-body">
                     <div style="float: right; padding: 5px">
+
+                        @if(Auth::user()-> id == $post->user_id)
+                            <form action="{{route('tweet.destroy', $post->id)}}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger" style="border-radius: 10px"
+                                        title="Delete Tweet"><u>X</u></button>
+                                @endif
+                            </form>
+                            <div style="padding-bottom: 10px"></div>
                         @if(Auth::user()-> id == $post->user_id)
                             <form action="{{route('tweet.edit', $post->id)}}" method="get">
                                 @csrf
                                 <button class="btn btn-warning" style="border-radius: 10px" title="Edit Tweet"><u>E</u>dit</button>
                                 @endif
                             </form>
-                            <div style="padding-bottom: 10px"></div>
-                            @if(Auth::user()-> id == $post->user_id)
-                                <form action="{{route('tweet.destroy', $post->id)}}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger" style="border-radius: 10px"
-                                            title="Delete Tweet"><u>X</u></button>
-                                    @endif
-                                </form>
+                                <div style="padding-bottom: 10px"></div>
+                                @if(Auth::user()->id != $post->user_id)
+                                <button style="border-radius: 10px; background-color: rgb(0,172,243)" class="btn btn-info"><u>F</u>ollow</button>
+                            @endif
                     </div>
                     <h6 class="media-heading" style="line-height: 3em">{{$post -> user-> username}}</h6>
                     <p>{{$post->content}}</p>

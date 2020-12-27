@@ -64,7 +64,7 @@ class PostController extends Controller
             $post->tags()->sync(request('tag'));
         }
 
-        return redirect('/tweet/'. auth()->user()->id);
+        return redirect('/account/'. auth()->user()->id);
         //$idOfPost = request('id');
     }
 
@@ -117,7 +117,7 @@ class PostController extends Controller
             $post->image = $filepath;
         }
 
-        $post->save();
+        $post->update();
         return redirect('/tweet/'. $post->id);
 
     }

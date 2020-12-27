@@ -14,7 +14,12 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::user()) {
+        return redirect('account/'. Auth::user()->id);
+        // TODO this should be home later on
+    } else {
+        return view('welcome');
+    }
 });
 
 
@@ -27,8 +32,8 @@ Auth::routes();
 
 Route::get('/tweet/create', [App\Http\Controllers\PostController::class, 'create'])->name('tweet.create');
 Route::post('/tweet/', [App\Http\Controllers\PostController::class, 'store'])->name('tweet.store');
-Route::get('/tweet/{id}', 'App\Http\Controllers\PostController@show') -> name('tweet.show');
-Route::get('/tweet', 'App\Http\Controllers\PostController@index')->name('tweet.index');
+Route::get('/tweet/{id}',[App\Http\Controllers\PostController::class, 'show']) -> name('tweet.show');
+Route::get('/tweet',[App\Http\Controllers\PostController::class, 'index'])->name('tweet.index');
 Route::get('/tweet/{id}/edit', [App\Http\Controllers\PostController::class,'edit'])->name('tweet.edit');
 Route::patch('/tweet/{id}', [PostController::class, 'update'])->name('tweet.update');
 Route::delete('/tweet/{id}', [App\Http\Controllers\PostController::class, 'destroy'])->name('tweet.destroy');
@@ -36,7 +41,5 @@ Route::delete('/tweet/{id}', [App\Http\Controllers\PostController::class, 'destr
 Route::get('/settings/{username}', [App\Http\Controllers\AccountController::class, 'edit'])->name('account.edit');
 Route::patch('settings/{username}/update', [App\Http\Controllers\AccountController::class, 'update'])->name('account.update');
 Route::delete('/settings/{username}', [App\Http\Controllers\AccountController::class, 'destroy'])->name('account.destroy');
+Route::get('/account/{username}', [App\Http\Controllers\AccountController::class, 'show'])->name('account.show');
 
-
-
-Route::get('/account/{username}', [App\Http\Controllers\AccountController::class, 'index'])->name('account.show');
