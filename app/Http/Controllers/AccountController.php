@@ -100,7 +100,7 @@ class AccountController extends Controller
             'location'=> 'nullable',
             'image'=> 'image',
         ]);
-        if (request('name')!=''){
+        if (request('name')!='') {
             $user->name = request('name');
         }
         if (request('biography')!='') {

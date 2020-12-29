@@ -17,7 +17,6 @@ use App\Http\Controllers\PostController;
 Route::get('/', function () {
     if (Auth::user()) {
         return redirect('account/'. Auth::user()->id);
-        // TODO this should be home later on
     } else {
         return view('welcome');
     }
@@ -44,5 +43,15 @@ Route::get('/settings/{username}', [App\Http\Controllers\AccountController::clas
 Route::patch('settings/{username}/update', [App\Http\Controllers\AccountController::class, 'update'])->name('account.update');
 Route::delete('/settings/{username}', [App\Http\Controllers\AccountController::class, 'destroy'])->name('account.destroy');
 Route::get('/account/{username}', [App\Http\Controllers\AccountController::class, 'show'])->name('account.show');
-
+Route::get('/account', function (){
+    if (Auth::user()) {
+        return redirect('account/'. Auth::user()->id);
+    } else {
+        return redirect('/login');
+    }
+});
 Route::get('/tag/{tag}', [\App\Http\Controllers\TagController::class, 'index']) ->name('tag.index');
+Route::post('save-comment', [PostController::class, 'save_comment'])->name('save_comment');
+Route::delete('tweet/delete-comment/{id}', [PostController::class, 'delete_comment'])->name('delete_comment');
+
+Route::post('/repost', [\App\Http\Controllers\RepostController::class, 'store'])->name('repost.store');

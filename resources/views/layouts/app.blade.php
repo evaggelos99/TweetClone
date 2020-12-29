@@ -17,7 +17,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
     <!-- CSRF Token -->
 
@@ -111,6 +111,15 @@
                                         @csrf
                                     </form>
 
+                                    <a class="dropdown-item" href="{{ route('tweet.index', Auth::user()->id)}}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('feed-form').submit();">
+                                        {{ __('Feed') }}
+                                    </a>
+                                    <form id="feed-form" action="{{ route('tweet.index', Auth::user()->id)}}" method="get" class="d-none">
+                                        @csrf
+                                    </form>
+
                                     <a class="dropdown-item" href="{{ route('account.destroy', Auth::user()->id)}}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('delete-form').submit();">
@@ -120,6 +129,8 @@
                                         @method('DELETE')
                                         @csrf
                                     </form>
+
+
                                 </div>
                             </li>
                         @endguest
@@ -136,5 +147,69 @@
             <strong>© 2020 Copyright: TweetClone.com</strong>
         </footer>
     </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(".save-comment").on('click',function(addComment){
+            var _comment=$(".comment").val();
+            var _post=$(this).data('post');
+            var vm=$(this);
+            // Run Ajax
+            $.ajax({
+                url:"{{ route('save_comment') }}",
+                type:"post",
+                dataType:'json',
+                data:{
+                    comment:_comment,
+                    post:_post,
+                    _token:"{{ csrf_token() }}"
+                },
+
+                success:function(res){
+                    var _html='<blockquote class="blockquote animate__animated animate__bounce">\
+            <small class="mb-0">'+_comment+'</small>\
+            </blockquote><hr/>';
+                    if(res.bool==true){
+                        $(".comments").prepend(_html);
+                        $(".comment").val('');
+                        $(".comment-count").text($('blockquote').length);
+                        $(".no-comments").hide();
+                    }
+                    vm.text('Post Comment').removeClass('disabled');
+                }
+            });
+        });
+
+        function deleteComment(comment_id) {
+            var _comment=$(".comment").val();
+            var status = confirm("Do you want to delete this comment?");
+            var url = 'websitecoursework.test/'+'delete-comment' + comment_id
+            var vm=$(this);
+            if(status == true) {
+
+                $.ajax({
+                    data: {
+                        "_token": "{{csrf_token()}}",
+                        'id': comment_id
+                    },
+                    url: 'delete-comment/' + comment_id,
+                    method: 'DELETE',
+                    dataType: 'json',
+
+                    success:function(res) {
+                        if(res.bool==true){
+                            $(".comments").prepend(_html);
+                            $(".comment").val('').remove();
+                            $(".comment-count").text($('blockquote').length);
+                            $(".no-comments").hide();
+                        }
+                    }
+                });
+            }
+        }
+
+
+    </script>
+
 </body>
 </html>

@@ -2,8 +2,7 @@
 
 @section('content')
 
-    <div class="container" style="padding-bottom: 10px; border-style: ridge; margin: 10px;margin: auto;
-  width: 50%;">
+    <div class="container" style="padding-bottom: 10px; border-style: ridge; margin: 10px;margin: auto;width: 100%; height: 100%">
         <div class="well">
             <div class="media">
                 <a class="pull-left" style="padding: 15px" href="/account/{{$post->user_id}}">
@@ -51,7 +50,7 @@
                                 <b style="font-size: 12px; padding-right: 2px">{{$tag}}</b>
                             </a>
                         @endforeach
-                        <i style="font-size: 12px; padding-right: 4px">Comments</i>
+                        <i style="font-size: 12px; padding-right: 4px">Comments: {{count($post->comments)}}</i>
                         <i style="font-size: 12px; padding-right: 4px">Reposts</i>
                         <i style="font-size: 12px; padding-right: 4px">Likes: {{$post->likes ?? 0}}</i>
                         <i style="font-size: 12px">Created: {{$post->created_at->format('d-m-Y')}}</i>
@@ -63,4 +62,43 @@
             </div>
         </div>
     </div>
+
+    <div style="padding: 20px"></div>
+
+        {{-- Post Comments --}}
+        <div class="card mt-4">
+            <h5 class="card-header">Comments <span class="comment-count float-right badge badge-info">{{ count($post->comments) }}</span></h5>
+            <div class="card-body">
+                {{-- Add Comment --}}
+                <div class="add-comment mb-3">
+                    @csrf
+                    <textarea class="form-control comment" placeholder="Enter Comment"></textarea>
+                    <button data-post="{{ $post->id }}" class="btn btn-dark btn-sm mt-2 save-comment">Post Comment</button>
+                </div>
+                <hr/>
+                {{-- List Start --}}
+                <div class="comments">
+                    @if(count($post->comments)>0)
+                        @foreach($post->comments as $comment)
+                            <blockquote class="blockquote">
+                                <div class="container-fluid">
+                                    <strong class="mb-0" style="font-size: 15px; color: dimgrey">Made by: {{ $comment->user->username}}</strong>
+                                    <br>
+                                    <small class="mb-0">{{ $comment->context }}</small>
+                                    <br>
+                                    <button onclick="deleteComment({{$comment->id}})" class="btn btn-danger">Delete comment</button>
+                                    <!--<button href="{}">hey</button>-->
+                                </div>
+                            </blockquote>
+                            <hr/>
+                        @endforeach
+                    @else
+                        <p class="no-comments">No Comments Yet</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+        {{-- ## End Post Comments --}}
+
+
 @endsection

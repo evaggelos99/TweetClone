@@ -5,8 +5,8 @@
         @foreach ($posts as $post)
             <div style="padding: 10px"></div>
                 <div class="container" style="padding-bottom: 10px; border-style: ridge; margin: 10px;margin: auto;
-  width: 50%;">
-                    <div class="well">
+  width: 100%; height: 100%">
+                    <div onclick="location.href='{{route('tweet.show', $post->id)}}'" class="well">
                         <div class="media">
                             <a class="pull-left" style="padding: 15px" href="/account/{{$post->user_id}}">
                                 @if($post->user->account->image !=null)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Pagination\Paginator;
@@ -69,7 +70,7 @@ class PostController extends Controller
 
         if (request('tag')!=null) {
             $tagIds = [];
-            $tagNames = explode(' ', request('tag'));
+            $tagNames = explode('#', request('tag'));
             foreach($tagNames as $tagName) {
                 $tag = Tag::firstOrCreate(['context' => $tagName]);
                 if ($tag) {
@@ -77,8 +78,7 @@ class PostController extends Controller
                 }
             }
             $post->tags()->sync($tagIds);
-            //$post = Auth()->user()->posts();
-            //$post->tags()->sync(request('tag'));
+
         }
 
         return redirect('/account/'. auth()->user()->id);
@@ -135,9 +135,18 @@ class PostController extends Controller
             $post->content = request('content');
         }
 
-        if (request('tag')!='') {
-            $post->tag = request('tag');
-        }
+            if (request('tag')!=null) {
+                $tagIds = [];
+                $tagNames = explode('#', request('tag'));
+                foreach($tagNames as $tagName) {
+                    $tag = Tag::firstOrCreate(['context' => $tagName]);
+                    if ($tag) {
+                        $tagIds[]= $tag-> id;
+                    }
+                }
+                $post->tags()->sync($tagIds);
+
+            }
 
         if (request('image')!='') {
             $filepath = request('image')->store('uploads', 'public');
@@ -160,5 +169,29 @@ class PostController extends Controller
         Post::findOrFail($id)->delete();
 
         return redirect('/account/'. auth()->user()->id);
+    }
+
+    public function save_comment(Request $request){
+        $data=new Comment;
+        $data->post_id=$request->post;
+        $data->context=$request->comment;
+        $data->likes=0;
+        $data->user_id=auth()->user()->id;
+
+        $data->save();
+        return response()->json([
+            'bool'=>true
+        ]);
+
+    }
+
+    public function delete_comment($id){
+
+        Comment::findOrFail($id)->delete();
+
+        return response()->json([
+            'bool'=>true
+        ]);
+
     }
 }

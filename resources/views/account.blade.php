@@ -47,7 +47,7 @@
 
                     <div style="padding: 15px">
                         <div class="container"
-                             style="padding-bottom: 10px; border-style: ridge; margin: 10px;margin: auto;width: 50%;">
+                             style="padding-bottom: 10px; border-style: ridge; margin: 10px;margin: auto;width: 100%; height: 100%">
                             <div onclick="location.href='{{route('tweet.show', $post->id)}}'" class="well">
 
                                 <div class="media">
@@ -86,7 +86,7 @@
                                             <strong class="media-heading"
                                                 style="line-height: 3em">{{$post -> user-> username}}</strong>
                                         </a>
-                                        <p>{{$post->content}}</p>
+                                        <p style="padding-left: 20px">{{$post->content}}</p>
                                         @if($post->image !=null)
                                             <div>
                                                 <a href="/storage/{{$post->image}}"><img src="/storage/{{$post->image}}"
@@ -96,12 +96,12 @@
 
                                         <div class="flex-column" style="padding-top: 15px">
                                             <i style="font-size: 12px; padding-right: 4px">Tags: </i>
-                                        @foreach( (explode(',',$post->tag)) as $tag)
+                                        @foreach( (explode('#',$post->tag)) as $tag)
                                                 <a href="{{route('tag.index', $tag) }}" style="text-decoration: none; color: black">
                                                     <b style="font-size: 12px; padding-right: 2px">{{$tag}}</b>
                                                 </a>
                                             @endforeach
-                                            <i style="font-size: 12px; padding-right: 4px">Comments</i>
+                                            <i style="font-size: 12px; padding-right: 4px">Comments: {{count($post->comments)}}</i>
                                             <i style="font-size: 12px; padding-right: 4px">Reposts</i>
                                             <i style="font-size: 12px; padding-right: 4px">Likes: {{$post->likes ?? 0}}</i>
                                             <i style="font-size: 12px">Created: {{$post->created_at->format('d-m-Y')}}</i>
