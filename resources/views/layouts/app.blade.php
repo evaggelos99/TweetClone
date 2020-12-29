@@ -7,23 +7,29 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+
+
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- CSRF Token -->
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
     <title>{{ config('app.name', 'TweetClone') }}</title>
+
     <link rel="shortcut icon" href="{{asset('images/logo.svg')}}">
 </head>
 <body>
-    <div id="app">
+    <div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
 
             <div class="container">
@@ -122,10 +128,10 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" id="app">
             @yield('content')
         </main>
-
+        <script src="{{mix('js/app.js')}}"></script>
         <footer class="text-center p-3" style="background-color: rgb(0, 172, 238)">
             <strong>© 2020 Copyright: TweetClone.com</strong>
         </footer>

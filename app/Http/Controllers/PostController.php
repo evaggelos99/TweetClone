@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
+use function Sodium\add;
 
 class PostController extends Controller
 {
@@ -18,9 +21,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        //$posts = Post::all();
-        //return view('post.index', ['posts' => $posts]);
+        Paginator::useBootstrap();
+        $users= auth() -> user()->following()-> pluck('accounts.user_id');
+        $posts = Post::whereIn('user_id', $users)->with('user')->orderBy('created_at', 'DESC')->paginate(15);
+
+        return view('post.index', [
+            'posts'=>$posts,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,7 +60,7 @@ class PostController extends Controller
             $filepath = request('image')->store('uploads', 'public');
         }
 
-        auth()-> user()->posts()->create([
+        $post=auth()-> user()->posts()->create([
             'content'=> $data['content'],
             'image' => $filepath ?? null,
             'likes' => $data['likes'] ?? null,
@@ -59,9 +68,17 @@ class PostController extends Controller
         ]);
 
         if (request('tag')!=null) {
-            //auth()-> user()->posts()->tags()->sync($request->input('tag'));
-            $post = Auth()->user()->posts();
-            $post->tags()->sync(request('tag'));
+            $tagIds = [];
+            $tagNames = explode(' ', request('tag'));
+            foreach($tagNames as $tagName) {
+                $tag = Tag::firstOrCreate(['context' => $tagName]);
+                if ($tag) {
+                    $tagIds[]= $tag-> id;
+                }
+            }
+            $post->tags()->sync($tagIds);
+            //$post = Auth()->user()->posts();
+            //$post->tags()->sync(request('tag'));
         }
 
         return redirect('/account/'. auth()->user()->id);
@@ -77,7 +94,17 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        return view('post.show', ['post'=>$post]);
+        $array = $post->tags;
+        $newTags =[];
+        foreach ($array as $tag) {
+            $newTags[] = $tag->context;
+        }
+
+        return view('post.show', [
+            'post'=>$post,
+            'newTags'=>$newTags,
+        ]);
+
     }
 
     /**

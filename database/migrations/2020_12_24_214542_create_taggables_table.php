@@ -13,9 +13,14 @@ class CreateTaggablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('taggables', function (Blueprint $table) {
-            $table->integer('tag_id');
-            $table->integer('taggable_id');
+        Schema::create('post_tag', function (Blueprint $table) {
+            //$table->foreign('post_id')->references('id')->on('posts')->onUpdate('cascade')->onDelete('cascade');
+            //$table->integer('post_id')->unsigned()->index();
+
+            //$table->foreign('tag_id')->references('id')->on('tags')->onUpdate('cascade')->onDelete('cascade');
+            //$table->integer('tag_id')->unsigned()->index();
+            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('tag_id');
 
         });
     }
@@ -27,6 +32,6 @@ class CreateTaggablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taggables');
+        Schema::dropIfExists('post_tag');
     }
 }

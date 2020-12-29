@@ -9,13 +9,14 @@ class Tag extends Model
 {
     use HasFactory;
 
-    /*protected $fillable = [
+    protected $fillable = [
         'context'
-    ];*/
+    ];
 
-    //public function posts() {
-    //    return $this->belongsToMany(Post::class, 'taggable');
-    //}
+    public function posts() {
+        return $this->belongsToMany(Post::class);
+    }
+
 
 
 

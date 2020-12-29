@@ -68,4 +68,17 @@ class User extends Authenticatable
     public function reposts() {
         return $this->hasMany(Repost::class);
     }
+
+    public function following() {
+        return $this->belongsToMany(Account::class);
+    }
+
+    public function account() {
+        return $this->hasOne(Account::class);
+    }
+
+    public function followers() {
+        return $this->belongsToMany(User::class);
+    }
+
 }

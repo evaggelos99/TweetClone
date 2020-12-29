@@ -16,9 +16,9 @@ class Post extends Model
         'image'
     ];
 
-    //public function tags() {
-    //    return $this->morphedByMany(Tag::class, 'taggable');
-    //}
+    public function tags() {
+        return $this->belongsToMany(Tag::class);
+    }
 
     public function user() {
         return $this->belongsTo(User::class);

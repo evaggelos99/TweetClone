@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 /*
@@ -28,7 +29,8 @@ Route::get('/', function () {
 Auth::routes();
 
 //testing
-//Route::get('logout','\App\Http\Controllers\Auth\LoginController@logout');
+//Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::post('follow/{username}', [FollowsController::class, 'store'])->name('follower.store');
 
 Route::get('/tweet/create', [App\Http\Controllers\PostController::class, 'create'])->name('tweet.create');
 Route::post('/tweet/', [App\Http\Controllers\PostController::class, 'store'])->name('tweet.store');
@@ -43,3 +45,4 @@ Route::patch('settings/{username}/update', [App\Http\Controllers\AccountControll
 Route::delete('/settings/{username}', [App\Http\Controllers\AccountController::class, 'destroy'])->name('account.destroy');
 Route::get('/account/{username}', [App\Http\Controllers\AccountController::class, 'show'])->name('account.show');
 
+Route::get('/tag/{tag}', [\App\Http\Controllers\TagController::class, 'index']) ->name('tag.index');

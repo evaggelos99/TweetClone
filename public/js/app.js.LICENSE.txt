@@ -1,0 +1,17 @@
+/*!
+ * Vue.js v2.6.12
+ * (c) 2014-2020 Evan You
+ * Released under the MIT License.
+ */
+
+/*! /home/evangelos/Laravel/code/websiteCoursework/resources/sass/app.scss */
+
+/*! no static exports found */
+
+/*!*********************************!*\
+    !*** ./resources/sass/app.scss ***!
+    \*********************************/
+
+/*!*************************************************************!*\
+    !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
+    \*************************************************************/

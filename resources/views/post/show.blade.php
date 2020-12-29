@@ -7,9 +7,9 @@
         <div class="well">
             <div class="media">
                 <a class="pull-left" style="padding: 15px" href="/account/{{$post->user_id}}">
-                @if($post->user->image !=null)
+                @if($post->user->account->image !=null)
                         <div>
-                            <img class="media-object rounded-circle" height="50" width="50" src="/storage/{{$post->user->image}}">
+                            <img class="media-object rounded-circle" height="50" width="50" src="/storage/{{$post->user->account->image}}">
                         </div>
                     @endif
                 </a>
@@ -32,10 +32,7 @@
                                 <button class="btn btn-warning" style="border-radius: 10px" title="Edit Tweet"><u>E</u>dit</button>
                                 @endif
                             </form>
-                                <div style="padding-bottom: 10px"></div>
-                                @if(Auth::user()->id != $post->user_id)
-                                <button style="border-radius: 10px; background-color: rgb(0,172,243)" class="btn btn-info"><u>F</u>ollow</button>
-                            @endif
+
                     </div>
                     <h6 class="media-heading" style="line-height: 3em">{{$post -> user-> username}}</h6>
                     <p>{{$post->content}}</p>
@@ -48,6 +45,12 @@
                     @endif
 
                     <div class="flex-column" style="padding-top: 15px">
+                        <i style="font-size: 12px; padding-right: 4px">Tags: </i>
+                        @foreach($newTags as $tag)
+                            <a href="{{route('tag.index', $tag) }}" style="text-decoration: none; color: black">
+                                <b style="font-size: 12px; padding-right: 2px">{{$tag}}</b>
+                            </a>
+                        @endforeach
                         <i style="font-size: 12px; padding-right: 4px">Comments</i>
                         <i style="font-size: 12px; padding-right: 4px">Reposts</i>
                         <i style="font-size: 12px; padding-right: 4px">Likes: {{$post->likes ?? 0}}</i>

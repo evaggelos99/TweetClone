@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -65,11 +66,16 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data) {
-        return User::create([
+        $account = new Account();
+
+        $user= User::create([
             'username' => $data['username'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => password_hash($data['password'], PASSWORD_BCRYPT),
         ]);
+        $account -> user_id = $user->id;
+        $account->save();
+        return $user;
     }
 }
