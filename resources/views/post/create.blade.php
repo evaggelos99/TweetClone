@@ -28,7 +28,7 @@
         <label for="tag" class="col-md-4 col-form-label text-md-right">{{ __('Tag') }}</label>
 
         <div class="col-md-6">
-            <input name="tag" id="usertag" type="text" class="form-control @error('tag') is-invalid @enderror" value="{{ old('tag') }}">
+            <input placeholder="#example#exampleTwo#Example3" name="tag" id="usertag" type="text" class="form-control @error('tag') is-invalid @enderror" value="{{ old('tag') }}">
 
             @error('tag')
             <span class="invalid-feedback" role="alert">

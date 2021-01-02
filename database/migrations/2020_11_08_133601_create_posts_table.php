@@ -20,8 +20,9 @@ class CreatePostsTable extends Migration
             $table->integer("likes")->nullable();
             $table->string("tag")->nullable();
             $table->binary("image")->nullable();
+            $table->integer('original_post')->nullable();
             $table->timestamps();
-
+            $table->boolean('repost')->default(false);
             $table->foreign("user_id")->references('id')
                 -> on('users')->onDelete('cascade')->onUpdate('cascade');
 

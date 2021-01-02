@@ -13,7 +13,8 @@ class Post extends Model
         'content',
         'likes',
         'tag',
-        'image'
+        'image',
+        'repost',
     ];
 
     public function tags() {
@@ -25,7 +26,7 @@ class Post extends Model
     }
 
     public function repost() {
-        return $this->hasMany(Repost::class);
+        return $this->repost;
     }
 
     public function comments() {

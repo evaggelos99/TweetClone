@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Listeners\SendEmailListener;
+use App\Mail\NotifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Mail;
 
 class Comment extends Model
 {

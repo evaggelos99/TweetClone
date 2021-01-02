@@ -11,6 +11,11 @@
                             <img src="/storage/{{$user->account->image}}"
                                  width="150" height="150" class="rounded-circle">
                         </div>
+                    @else
+                        <div>
+                            <img src="{{asset('images/No_image_available.svg')}}"
+                                 width="150" height="150" class="rounded-circle">
+                        </div>
                     @endif
                 </div>
 
@@ -22,6 +27,7 @@
                         <follow-button follows="{{$follows}}" user-id="{{$user->id}}" style="float: right;"></follow-button>
                     @endif
                 </div>
+
                 <div style="padding-bottom: 15px">
                     <strong style="color: dimgrey; font-size: 16px">{{$user->username}}</strong>
                 </div>
@@ -43,6 +49,11 @@
 
         </div>
         <ul>
+            @if(count($posts)==0)
+                <div style="text-align: center">
+                    <strong class="center-block" style="border-top: 10px gray; justify-content: center; align-items: center">No tweets yet</strong>
+                </div>
+            @endif
         @foreach($posts as $post)
 
                     <div style="padding: 15px">
@@ -54,12 +65,19 @@
                                     @if($user->account->image !=null)
                                     <a class="pull-left" style="padding: 15px" href="/account/{{$post->user_id}}">
 
-                                            <div>
+                                            <div class="pt-3">
                                                 <img src="/storage/{{$user->account->image}}"
-                                                     width="50" height="50" class="rounded-circle">
+                                                     width="75" height="75" class="rounded-circle">
                                             </div>
 
                                     </a>
+                                    @else
+                                        <a class="pull-left" style="padding: 15px" href="/account/{{$post->user_id}}">
+                                        <div class="pt-3">
+                                            <img src="{{asset('images/No_image_available.svg')}}"
+                                                 width="75" height="75" class="rounded-circle">
+                                        </div>
+                                        </a>
                                     @endif
                                     <div class="media-body" style="padding-top: 10px">
                                         <div style="float: right; padding: 5px">
@@ -83,8 +101,8 @@
 
                                         </div>
                                         <a class="pull-left" style="padding: 15px; text-decoration: none; color: black" href="/account/{{$post->user_id}}">
-                                            <strong class="media-heading"
-                                                style="line-height: 3em">{{$post -> user-> username}}</strong>
+                                            <h6 class="media-heading"
+                                                style="line-height: 3em">Made by: <strong>{{$post->user->username}}</strong></h6>
                                         </a>
                                         <p style="padding-left: 20px">{{$post->content}}</p>
                                         @if($post->image !=null)
@@ -95,18 +113,21 @@
                                         @endif
 
                                         <div class="flex-column" style="padding-top: 15px">
-                                            <i style="font-size: 12px; padding-right: 4px">Tags: </i>
+                                            @if($post->tag != null)
+                                                <i style="font-size: 12px; padding-right: 4px">Tags: </i>
+                                            @endif
                                         @foreach( (explode('#',$post->tag)) as $tag)
                                                 <a href="{{route('tag.index', $tag) }}" style="text-decoration: none; color: black">
                                                     <b style="font-size: 12px; padding-right: 2px">{{$tag}}</b>
                                                 </a>
                                             @endforeach
                                             <i style="font-size: 12px; padding-right: 4px">Comments: {{count($post->comments)}}</i>
-                                            <i style="font-size: 12px; padding-right: 4px">Reposts</i>
-                                            <i style="font-size: 12px; padding-right: 4px">Likes: {{$post->likes ?? 0}}</i>
                                             <i style="font-size: 12px">Created: {{$post->created_at->format('d-m-Y')}}</i>
                                             @if($post->created_at != $post->updated_at)
                                                 <i style="font-size: 12px; padding-right: 4px">(Edited)</i>
+                                            @endif
+                                            @if($post->repost)
+                                                    <a href="{{route('tweet.show', $post->original_post)}}" style="color: black;text-decoration: none;font-size: 12px; padding-right: 4px"><strong>(Retweeted)</strong></a>
                                             @endif
                                         </div>
 

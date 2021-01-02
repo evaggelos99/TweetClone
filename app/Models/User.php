@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\PostController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,12 +62,9 @@ class User extends Authenticatable
     ];
 
 
+
     public function posts() {
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
-    }
-
-    public function reposts() {
-        return $this->hasMany(Repost::class);
     }
 
     public function following() {

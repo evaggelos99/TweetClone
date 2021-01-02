@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FollowsController;
+use App\Http\Controllers\RepostController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 /*
@@ -31,6 +34,7 @@ Auth::routes();
 //Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::post('follow/{username}', [FollowsController::class, 'store'])->name('follower.store');
 
+
 Route::get('/tweet/create', [App\Http\Controllers\PostController::class, 'create'])->name('tweet.create');
 Route::post('/tweet/', [App\Http\Controllers\PostController::class, 'store'])->name('tweet.store');
 Route::get('/tweet/{id}',[App\Http\Controllers\PostController::class, 'show']) -> name('tweet.show');
@@ -50,8 +54,11 @@ Route::get('/account', function (){
         return redirect('/login');
     }
 });
-Route::get('/tag/{tag}', [\App\Http\Controllers\TagController::class, 'index']) ->name('tag.index');
-Route::post('save-comment', [PostController::class, 'save_comment'])->name('save_comment');
-Route::delete('tweet/delete-comment/{id}', [PostController::class, 'delete_comment'])->name('delete_comment');
 
-Route::post('/repost', [\App\Http\Controllers\RepostController::class, 'store'])->name('repost.store');
+Route::get('/tag/{tag}', [TagController::class, 'index']) ->name('tag.index');
+Route::post('/tweet/save-comment', [CommentsController::class, 'save_comment'])->name('save_comment');
+Route::delete('/tweet/delete-comment/{id}', [CommentsController::class, 'delete_comment'])->name('delete_comment');
+Route::get('/tweet/edit-comment/{id}', [CommentsController::class, 'edit'])->name('comment.edit');
+Route::patch('/tweet/comment/{id}', [CommentsController::class, 'update'])->name('comment.update');
+//Route::patch('/tweet/edit/{id}', [CommentsController::class, 'edit_comment'])->name('edit_comment');
+Route::post('/repost/{id}', [RepostController::class, 'store'])->name('repost.store');

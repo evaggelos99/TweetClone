@@ -20,6 +20,8 @@ class TagController extends Controller
 
                 $posts = $tagPost['posts']->sortByDesc('created_at');
                 $collection = collect($posts)->paginate(5);
+                //dd($collection);
+
                 return view('post.index', [
                     'posts'=>$collection
                 ]);

@@ -58,8 +58,15 @@ class AccountController extends Controller
         $follows=(auth()->user()) ? auth()->user()->following->contains($user->id) : false;
         $followersCounter = $this->getFollowersCounter($user);
         $followingCounter = $this->getFollowingCounter($user);
-        $posts=$user->posts->paginate(15);
-
+        $posts=$user->posts->sortByDesc('created_at')->paginate(15);
+        /*$reposts = $user->reposts;
+        $newRepostArray=[];
+        foreach ($reposts as $repost){
+            $newPost=Post::find($repost->post_id);
+            //dd($newPost->reposts);
+            $newRepostArray[] = $newPost;
+        }*/
+        //$mergedPosts = $posts->concat($newRepostArray)->sortByDesc('created_at')->paginate(15);
         return view('account', [
             'user'=>$user,
             'posts'=>$posts,

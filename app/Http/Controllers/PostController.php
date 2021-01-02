@@ -62,6 +62,7 @@ class PostController extends Controller
         }
 
         $post=auth()-> user()->posts()->create([
+            'repost'=> 0,
             'content'=> $data['content'],
             'image' => $filepath ?? null,
             'likes' => $data['likes'] ?? null,
@@ -135,7 +136,7 @@ class PostController extends Controller
             $post->content = request('content');
         }
 
-            if (request('tag')!=null) {
+            if (request('tag')!='') {
                 $tagIds = [];
                 $tagNames = explode('#', request('tag'));
                 foreach($tagNames as $tagName) {
@@ -145,7 +146,7 @@ class PostController extends Controller
                     }
                 }
                 $post->tags()->sync($tagIds);
-
+                $post->tag=request('tag');
             }
 
         if (request('image')!='') {
@@ -171,27 +172,4 @@ class PostController extends Controller
         return redirect('/account/'. auth()->user()->id);
     }
 
-    public function save_comment(Request $request){
-        $data=new Comment;
-        $data->post_id=$request->post;
-        $data->context=$request->comment;
-        $data->likes=0;
-        $data->user_id=auth()->user()->id;
-
-        $data->save();
-        return response()->json([
-            'bool'=>true
-        ]);
-
-    }
-
-    public function delete_comment($id){
-
-        Comment::findOrFail($id)->delete();
-
-        return response()->json([
-            'bool'=>true
-        ]);
-
-    }
 }
