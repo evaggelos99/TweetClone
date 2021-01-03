@@ -14,6 +14,6 @@ class RepostSeeder extends Seeder
      */
     public function run()
     {
-        Repost::factory() ->times(5) -> create();
+        //Repost::factory() ->times(5) -> create();
     }
 }

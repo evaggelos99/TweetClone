@@ -14,10 +14,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b45ee5e-f589-494e-a741-b283894b46c4" name="Default Changelist" comment="Relationships are done Tag seeding needs work">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AccountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/CommentFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/CommentFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/PostFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/PostFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/RepostFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/RepostFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_214542_create_taggables_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_24_214542_create_taggables_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/CommentSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/CommentSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/PostSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/PostSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/RepostSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/RepostSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/UserSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/UserSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,7 +325,8 @@
       <workItem from="1609418778584" duration="9814000" />
       <workItem from="1609503220247" duration="28339000" />
       <workItem from="1609595183283" duration="6078000" />
-      <workItem from="1609614392174" duration="12315000" />
+      <workItem from="1609614392174" duration="13597000" />
+      <workItem from="1609670152744" duration="13737000" />
     </task>
     <task id="LOCAL-00001" summary="Relationships are done Tag seeding needs work">
       <created>1604869722133</created>

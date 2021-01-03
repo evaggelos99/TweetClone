@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,10 +22,24 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $user = new User();
+        $account = new Account();
+        $user->username = $this -> faker -> userName;
+        $user->email =  $this -> faker -> safeEmail;
+        $user->name = ($this->faker->firstName) . ($this->faker->lastName);
+        $user->password = $this -> faker -> password;
+        $user->save();
+        $account -> user_id = $user->id;
+        $account-> biography = $this -> faker -> text(5);
+        $account->location = $this -> faker -> address;
+        $image = $this -> faker-> image(storage_path('app/public/uploads'),$width = 640, $height = 480, null, false);
+        $account->image='/uploads/' . $image;
+        $account->save();
         return [
-            'username' => $this -> faker -> userName,
+            /*'username' => $this -> faker -> userName,
             'email' => $this -> faker -> safeEmail,
-            'password' => bcrypt($this -> faker -> password),
+            'name' => ($this->faker->firstName) . ($this->faker->lastName),
+            'password' => $this -> faker -> password,*/
         ];
     }
 }

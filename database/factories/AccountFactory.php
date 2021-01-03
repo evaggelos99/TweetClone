@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Tag;
+use App\Models\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TagFactory extends Factory
+class AccountFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
- * @var string
+     * @var string
      */
-    protected $model = Tag::class;
+    protected $model = Account::class;
 
     /**
      * Define the model's default state.
@@ -21,10 +21,10 @@ class TagFactory extends Factory
      */
     public function definition()
     {
-
         return [
-            'post_id' =>$this->faker->numberBetween($min=0,$max=50),
-            'slug' => $this->faker->slug,
+            'biography' => $this -> faker -> text($maxNbChars = 5) ,
+            'email' => $this -> faker -> address,
+            'image' => $this ->faker -> imageUrl($width = 640, $height = 480),
         ];
     }
 }

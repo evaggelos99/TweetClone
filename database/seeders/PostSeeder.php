@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Post;
+use Database\Factories\RepostFactory;
 use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
@@ -14,6 +15,7 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory() ->times(1) -> create();
+        Post::factory() ->times(150) -> create();
+        //RepostFactory::class -> times(10) -> create();
     }
 }
