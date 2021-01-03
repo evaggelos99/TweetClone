@@ -24,7 +24,7 @@ class PostController extends Controller
     {
         Paginator::useBootstrap();
         $users= auth() -> user()->following()-> pluck('accounts.user_id');
-        $posts = Post::whereIn('user_id', $users)->with('user')->orderBy('created_at', 'DESC')->paginate(15);
+        $posts = Post::whereIn('user_id', $users)->with('user')->orderBy('created_at', 'DESC')->paginate(5);
 
         return view('post.index', [
             'posts'=>$posts,

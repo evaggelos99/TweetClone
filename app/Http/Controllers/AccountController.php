@@ -58,7 +58,7 @@ class AccountController extends Controller
         $follows=(auth()->user()) ? auth()->user()->following->contains($user->id) : false;
         $followersCounter = $this->getFollowersCounter($user);
         $followingCounter = $this->getFollowingCounter($user);
-        $posts=$user->posts->sortByDesc('created_at')->paginate(15);
+        $posts=$user->posts->sortByDesc('created_at')->paginate(5);
         /*$reposts = $user->reposts;
         $newRepostArray=[];
         foreach ($reposts as $repost){
@@ -159,7 +159,7 @@ class AccountController extends Controller
     {
         $followingCounter = Cache::remember(
             'count.following.' . $user->id,
-            now()->addSeconds(30),
+            now()->addSeconds(5),
             function () use ($user) {
                 return $user->following->count();
             });
@@ -174,7 +174,7 @@ class AccountController extends Controller
     {
         $followersCounter = Cache::remember(
             'count.followers.' . $user->id,
-            now()->addSeconds(30),
+            now()->addSeconds(5),
             function () use ($user) {
                 return $user->account->followers->count();
             });
